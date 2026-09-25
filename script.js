@@ -48,43 +48,42 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    let rpsHuman = prompt("Rock, Paper, or Scissors: ");
+    let rpsHuman = prompt("Rock, Paper, or Scissors: ").toUpperCase();
     return rpsHuman;
 }
 
 function playGame(){
     function playRound(humanChoice,computerChoice) {
-        let humanChoiceCaps = humanChoice.toUpperCase();
+        console.log(humanChoice);
 
 
-
-        if (humanChoiceCaps === computerChoice) {
+        if (humanChoice === computerChoice) {
             console.log("YOU TIED");
         }
-        else if (humanChoiceCaps === "ROCK" && computerChoice === "SCISSORS"){
+        else if (humanChoice === "ROCK" && computerChoice === "SCISSORS"){
             console.log("YOU WIN ROCK BEATS SCISSORS")
             humanScore += 1;
         }    
-        else if(humanChoiceCaps === "ROCK" && computerChoice === "PAPER") {
+        else if(humanChoice === "ROCK" && computerChoice === "PAPER") {
             console.log("YOU LOSE PAPER BEATS ROCK")
             computerScore += 1;
         }
-        else if (humanChoiceCaps === "PAPER" && computerChoice === "SCISSORS"){
+        else if (humanChoice === "PAPER" && computerChoice === "SCISSORS"){
             console.log("YOU LOSE SCISSORS BEATS PAPER")
             computerScore += 1;
 
         }
-        else if (humanChoiceCaps === "PAPER" && computerChoice === "ROCK"){
+        else if (humanChoice === "PAPER" && computerChoice === "ROCK"){
             console.log("YOU WIN PAPER BEATS ROCK");
             humanScore += 1;
 
         }
-        else if (humanChoiceCaps === "SCISSORS" && computerChoice === "PAPER"){
+        else if (humanChoice === "SCISSORS" && computerChoice === "PAPER"){
             console.log("YOU WIN SCISSORS BEATS PAPER")
             humanScore += 1;
 
         }
-        else if (humanChoiceCaps === "SCISSORS" && computerChoice === "ROCK") {
+        else if (humanChoice === "SCISSORS" && computerChoice === "ROCK") {
             console.log("YOU LOSE ROCK BEATS SCISSORS")
             computerScore += 1;
 
@@ -97,14 +96,9 @@ function playGame(){
         
     }
     
-
-
     playRound(getHumanChoice(),getComputerChoice());
 
 }
-
-
-
 
 
 
