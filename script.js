@@ -34,7 +34,6 @@
 
 function getComputerChoice() {
     let rpsComp = Math.floor(Math.random()*3);
-    //console.log(rpsComp)
     if (rpsComp === 0) {
         return "ROCK"
     }
@@ -47,14 +46,16 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let rpsHuman = prompt("Rock, Paper, or Scissors: ").toUpperCase();
+function getHumanChoice(buttonClick) {
+    let rpsHuman = buttonClick;
     return rpsHuman;
-}
+    }
 
-function playGame(){
+function playGame(humanClick){
+    let humanChoice = humanClick
     function playRound(humanChoice,computerChoice) {
         console.log(humanChoice);
+        console.log(computerChoice)
 
         if (humanChoice === computerChoice) {
             console.log("YOU TIED");
@@ -79,31 +80,40 @@ function playGame(){
             playRound(getHumanChoice(),getComputerChoice())
         }        
     }
-    playRound(getHumanChoice(),getComputerChoice());
+    playRound(humanChoice,getComputerChoice());
 }
-
 
 
 let humanScore = 0;
 let computerScore = 0;
-//console.log(humanScore);
-//console.log(computerScore);
+
+    
+const buttons = document.querySelectorAll('.selectionButton');
+buttons.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+        const humanClick = event.target.id.toUpperCase()
+        playGame(humanClick);
+
+        })
+    })
 
 
 
-for (i=0; i < 5; i++){
-    playGame();
-    //console.log(humanScore);
-    //console.log(computerScore);
-    }
 
-if(humanScore>computerScore){
-    console.log(`YOU WIN THE GAME ${humanScore}:${computerScore}`);
-  }  
-  else if(humanScore<computerScore){
-    console.log(`YOU LOSE THE GAME ${humanScore}:${computerScore}`);
-  }
-  else{
-    console.log(`YOU TIED THE GAME ${humanScore}:${computerScore}`)}
+
+
+//COMMENT OUT 5 ROUND LOGIC.
+// for (i=0; i < 5; i++){
+//     playGame();
+//     }
+
+// if(humanScore>computerScore){
+//     console.log(`YOU WIN THE GAME ${humanScore}:${computerScore}`);
+//   }  
+//   else if(humanScore<computerScore){
+//     console.log(`YOU LOSE THE GAME ${humanScore}:${computerScore}`);
+//   }
+//   else{
+//     console.log(`YOU TIED THE GAME ${humanScore}:${computerScore}`)}
 
 

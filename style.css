@@ -1,0 +1,22 @@
+body{
+    text-align:center;
+}
+
+.selectionButton {
+    color:white;
+    font-size: 24px;
+    }
+
+#rock {
+    background: brown;
+}
+
+#paper {
+    background:papayawhip;
+    color: black;
+    
+    }
+
+#scissors {
+    background:silver;
+}
