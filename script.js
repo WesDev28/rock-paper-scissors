@@ -84,36 +84,41 @@ function playGame(humanClick){
 }
 
 
+function newStart() {
+    const buttons = document.querySelectorAll('.selectionButton');
+    buttons.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            if (roundsPlayed >= 5) {
+                if(humanScore>computerScore){
+                    return console.log(`YOU WIN THE GAME ${humanScore}:${computerScore}`);
+                    }  
+                else if(humanScore<computerScore){
+                    return console.log(`YOU LOSE THE GAME ${humanScore}:${computerScore}`);
+                }
+                else if(humanScore === computerScore){
+                    return console.log(`YOU TIED THE GAME ${humanScore}:${computerScore}`)
+                    }   
+                }
+
+            playGame(event.target.id.toUpperCase());
+            roundsPlayed ++;
+            })
+        })
+}
+
+
+
 let humanScore = 0;
 let computerScore = 0;
 
-    
-const buttons = document.querySelectorAll('.selectionButton');
-buttons.forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-        const humanClick = event.target.id.toUpperCase()
-        playGame(humanClick);
-
-        })
-    })
+let roundsPlayed = 0;
 
 
 
 
 
+newStart()
 
-//COMMENT OUT 5 ROUND LOGIC.
-// for (i=0; i < 5; i++){
-//     playGame();
-//     }
 
-// if(humanScore>computerScore){
-//     console.log(`YOU WIN THE GAME ${humanScore}:${computerScore}`);
-//   }  
-//   else if(humanScore<computerScore){
-//     console.log(`YOU LOSE THE GAME ${humanScore}:${computerScore}`);
-//   }
-//   else{
-//     console.log(`YOU TIED THE GAME ${humanScore}:${computerScore}`)}
 
 
