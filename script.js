@@ -46,70 +46,82 @@ function getComputerChoice() {
     }
 }
 
-// function getHumanChoice(buttonClick) {
-//     let rpsHuman = buttonClick;
-//     return rpsHuman;
-//     }
 
-function playGame(humanClick){
+function playRound(humanClick,computerChoice) {
     let humanChoice = humanClick
-    function playRound(humanChoice,computerChoice) {
-        console.log(humanChoice);
-        console.log(computerChoice)
-        
-        if (humanChoice === computerChoice) {
-            addResult("YOU TIED");
-        }
-
-        else if ((humanChoice === "ROCK" && computerChoice === "SCISSORS")||
-        (humanChoice === "PAPER" && computerChoice === "ROCK") ||
-        (humanChoice === "SCISSORS" && computerChoice === "PAPER")) {
-            addResult(`YOU WIN ${humanChoice} BEATS ${computerChoice}`)
-            humanScore += 1;
-        }    
-
-        else if ((humanChoice === "ROCK" && computerChoice === "PAPER") ||
-        (humanChoice === "PAPER" && computerChoice === "SCISSORS") ||
-        (humanChoice === "SCISSORS" && computerChoice === "ROCK")) {
-            addResult(`YOU LOSE ${humanChoice} LOSES TO ${computerChoice}`)
-            computerScore += 1;
-        }   
+    console.log(humanChoice);
+    console.log(computerChoice)
+    
+    if (humanChoice === computerChoice) {
+        addResult("YOU TIED");
     }
-    playRound(humanChoice,getComputerChoice());
+
+    else if ((humanChoice === "ROCK" && computerChoice === "SCISSORS")||
+    (humanChoice === "PAPER" && computerChoice === "ROCK") ||
+    (humanChoice === "SCISSORS" && computerChoice === "PAPER")) {
+        addResult(`YOU WIN ${humanChoice} BEATS ${computerChoice}`)
+        humanScore += 1;
+    }    
+
+    else if ((humanChoice === "ROCK" && computerChoice === "PAPER") ||
+    (humanChoice === "PAPER" && computerChoice === "SCISSORS") ||
+    (humanChoice === "SCISSORS" && computerChoice === "ROCK")) {
+        addResult(`YOU LOSE ${humanChoice} LOSES TO ${computerChoice}`)
+        computerScore += 1;
+    }   
 }
+
 
 
 function newStart() {
     const buttons = document.querySelectorAll('.selectionButton');
     buttons.forEach((btn) => {
         btn.addEventListener("click", (event) => {
-            const gameWinner = document.querySelector('#gameWinner');
-            if (roundsPlayed >= 5) {
+            playRound(event.target.id.toUpperCase(),getComputerChoice());
+            roundsPlayed++;
+            if (roundsPlayed === 5) {
                 if(humanScore>computerScore){
-                    gameWinner.textContent = (`YOU WIN THE GAME ${humanScore}:${computerScore}`);
+                    resultDisplay("green",`YOU WIN THE GAME ${humanScore}:${computerScore}`)
+                    
                     return 
                     }  
                 else if(humanScore<computerScore){
-                    gameWinner.textContent = (`YOU LOSE THE GAME ${humanScore}:${computerScore}`);
+                    resultDisplay("red",`YOU LOSE THE GAME ${humanScore}:${computerScore}`)
+                    
                     return
                 }
                 else if(humanScore === computerScore){
-                    gameWinner.textContent = (`YOU TIED THE GAME ${humanScore}:${computerScore}`)
+                    resultDisplay("silver",`YOU TIED THE GAME ${humanScore}:${computerScore}`)
+                    
                     return
                     }   
                 }
 
-            playGame(event.target.id.toUpperCase());
-            roundsPlayed ++;
+
+            
             })
         })
 }
 
-function addResult(message) {
+function addResult(roundMessage) {
     const p = document.createElement("p");
-    p.textContent = message;
+    p.textContent = roundMessage;
     roundResult.appendChild(p);
 
+}
+
+function resultDisplay(colour,textOutput){
+    const gameWinner = document.querySelector("#gameWinner");
+    const borderBox = document.createElement("div");
+    const container = document.querySelector("#container");
+
+    borderBox.classList.add("borderBox");
+    borderBox.style.background = colour;
+
+    gameWinner.textContent = textOutput;
+
+    borderBox.appendChild(gameWinner);
+    container.appendChild(borderBox);
 }
 
 
@@ -119,7 +131,6 @@ let humanScore = 0;
 let computerScore = 0;
 
 let roundsPlayed = 0;
-
 
 
 newStart()
