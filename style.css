@@ -1,5 +1,6 @@
 body{
     text-align:center;
+    background:peachpuff;
 }
 
 .selectionButton {
@@ -21,15 +22,22 @@ body{
     background:silver;
 }
 
+.scoreTally {
+    font-size:30px
+}
+
+#roundResult{
+    margin: 20px 0}
+
+#gameWinner {
+    font-size:24px;
+    align-self:center;
+}
+
 .borderBox {
     border: 10px solid black;
     min-height: 150px;
     display:flex;
     align-items:center;
     justify-content:center;
-}
-
-#gameWinner {
-    font-size:24px;
-    align-self:center;
 }

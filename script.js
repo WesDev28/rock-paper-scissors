@@ -1,37 +1,3 @@
-//Set up project structure
-
-//write logic to get computer choice
-//MAKE new function to get the computer choice
-//CALL the math random function to get a number
-//COMPARE the number between 0.33 0.66 1 to determine rock paper or scissors
-//LOG the the result.
-
-//write logic to get human choice
-// MAKE new function to get humans choice.
-// PROMPT for users input.
-
-
-//declare players score variables
-// MAKE variables to store the scores for the human and computer.
-// INIT to 0.
-
-
-//write the logic to play a single round.
-// MAKE new function named that plays a round.
-// ADD two parameters for the human & computer choice.
-// MAKE human choice case-insensitive.
-// LOG the round winner.
-// INCREMENT the score.
-
-
-//write the logic to play the entire game
-// MAKE function to play the game for 5 rounds.
-// TRACK the scores
-// COMPARE the scores and determine a winner.
-
-
-
-
 function getComputerChoice() {
     let rpsComp = Math.floor(Math.random()*3);
     if (rpsComp === 0) {
@@ -49,71 +15,54 @@ function getComputerChoice() {
 
 function playRound(humanClick,computerChoice) {
     let humanChoice = humanClick
-    console.log(humanChoice);
-    console.log(computerChoice)
     
     if (humanChoice === computerChoice) {
-        addResult("YOU TIED");
+        roundResult.textContent = (`YOU TIED WITH ${humanChoice}`);
     }
 
     else if ((humanChoice === "ROCK" && computerChoice === "SCISSORS")||
     (humanChoice === "PAPER" && computerChoice === "ROCK") ||
     (humanChoice === "SCISSORS" && computerChoice === "PAPER")) {
-        addResult(`YOU WIN ${humanChoice} BEATS ${computerChoice}`)
+        roundResult.textContent = (`YOU WIN ${humanChoice} BEATS ${computerChoice}`)
         humanScore += 1;
     }    
 
     else if ((humanChoice === "ROCK" && computerChoice === "PAPER") ||
     (humanChoice === "PAPER" && computerChoice === "SCISSORS") ||
     (humanChoice === "SCISSORS" && computerChoice === "ROCK")) {
-        addResult(`YOU LOSE ${humanChoice} LOSES TO ${computerChoice}`)
+        roundResult.textContent = (`YOU LOSE ${humanChoice} LOSES TO ${computerChoice}`)
         computerScore += 1;
     }   
+    humanSpan.textContent = humanScore;
+    computerSpan.textContent = computerScore;
 }
 
 
 
-function newStart() {
-    const buttons = document.querySelectorAll('.selectionButton');
+function playGame(event) {
+    if (humanScore === 5 || computerScore === 5) return;
+
+    playRound(event.target.id.toUpperCase(),getComputerChoice());
+
+    if(humanScore === 5){
+        resultDisplay("green",`YOU WIN THE GAME ${humanScore}:${computerScore}`)
+        setTimeout(() => location.reload(),3000);
+
+        }  
+    else if(computerScore === 5){
+        resultDisplay("red",`YOU LOSE THE GAME ${humanScore}:${computerScore}`)             
+        setTimeout(() => location.reload(),3000);
+    }
+
+}
+
+function newGame() {
     buttons.forEach((btn) => {
-        btn.addEventListener("click", (event) => {
-            playRound(event.target.id.toUpperCase(),getComputerChoice());
-            roundsPlayed++;
-            if (roundsPlayed === 5) {
-                if(humanScore>computerScore){
-                    resultDisplay("green",`YOU WIN THE GAME ${humanScore}:${computerScore}`)
-                    
-                    return 
-                    }  
-                else if(humanScore<computerScore){
-                    resultDisplay("red",`YOU LOSE THE GAME ${humanScore}:${computerScore}`)
-                    
-                    return
-                }
-                else if(humanScore === computerScore){
-                    resultDisplay("silver",`YOU TIED THE GAME ${humanScore}:${computerScore}`)
-                    
-                    return
-                    }   
-                }
-
-
-            
-            })
-        })
-}
-
-function addResult(roundMessage) {
-    const p = document.createElement("p");
-    p.textContent = roundMessage;
-    roundResult.appendChild(p);
-
+        btn.addEventListener("click", playGame);
+    })
 }
 
 function resultDisplay(colour,textOutput){
-    const gameWinner = document.querySelector("#gameWinner");
-    const borderBox = document.createElement("div");
-    const container = document.querySelector("#container");
 
     borderBox.classList.add("borderBox");
     borderBox.style.background = colour;
@@ -125,15 +74,21 @@ function resultDisplay(colour,textOutput){
 }
 
 
-const roundResult = document.querySelector("#roundResult");
+const buttons = document.querySelectorAll('.selectionButton');
+const roundResult = document.querySelector('#roundResult');
+const humanSpan = document.querySelector('#humanSpan')
+const computerSpan = document.querySelector('#computerSpan')
+
+const gameWinner = document.querySelector("#gameWinner");
+const borderBox = document.createElement("div");
+const container = document.querySelector("#container");
+
 
 let humanScore = 0;
 let computerScore = 0;
 
-let roundsPlayed = 0;
 
-
-newStart()
+newGame()
 
 
 
